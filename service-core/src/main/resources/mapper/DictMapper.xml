@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.liuuki.srb.dao.DictMapper">
+    <insert id="saveExcel" parameterType="list">
+        insert into dict(
+            id,
+            parent_id,
+            name,
+            value,
+            dict_code
+        )values
+                 <foreach collection="list" separator="," item="item" index="index">
+                    (
+                     #{item.id} ,
+                     #{item.parentId} ,
+                     #{item.name} ,
+                     #{item.value} ,
+                     #{item.dictCode}
+                     )
+                 </foreach>
 
+    </insert>
 </mapper>

@@ -1,12 +1,15 @@
 package com.liuuki.srb.controller.admin;
 
 
+import com.liuuki.exception.Assert;
 import com.liuuki.srb.entity.IntegralGrade;
 import com.liuuki.srb.service.IntegralGradeService;
 import com.liuuki.srb.vo.R;
+import com.liuuki.srb.vo.ResultEnum;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -24,6 +27,7 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping("/admin/core/integralGrade")
 @Api(tags = "积分管理模块")
+@Slf4j
 public class AdminIntegralGradeController {
     @Resource
     private IntegralGradeService integralGradeService;
@@ -53,7 +57,7 @@ public class AdminIntegralGradeController {
     public R addIntegralGrade(
             @ApiParam(value = "积分信息的对象",readOnly = true)
             @RequestBody IntegralGrade integralGrade){
-
+        Assert.notNull(integralGrade.getBorrowAmount(), ResultEnum.BORROW_AMOUNT_NULL_ERROR); //断言抛出异常
         Boolean flag = integralGradeService.save(integralGrade);
         if(flag){
             return R.success().message("新增成功！"+"/n"+"新增内容：/n"+integralGrade.toString());
@@ -77,7 +81,7 @@ public class AdminIntegralGradeController {
     }
 
     @ApiOperation("根据单个ID更新积分等级信息")
-    @PutMapping("/updateAc/updateById/{id}")
+        @PutMapping("/updateAc/updateById")
     public R updateById(
             @ApiParam(value = "积分等级的对象",readOnly = true)
             @RequestBody IntegralGrade integralGrade
@@ -89,6 +93,8 @@ public class AdminIntegralGradeController {
             return R.error().message("修改失败");
         }
     }
+
+
 
 
 

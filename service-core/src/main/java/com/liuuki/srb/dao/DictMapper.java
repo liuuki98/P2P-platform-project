@@ -2,6 +2,10 @@ package com.liuuki.srb.dao;
 
 import com.liuuki.srb.entity.Dict;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.liuuki.srb.entity.dto.ExcelDictDTO;
+import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +17,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface DictMapper extends BaseMapper<Dict> {
 
+    void saveExcel(List<ExcelDictDTO> list);
 }

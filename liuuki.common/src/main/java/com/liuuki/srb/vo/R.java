@@ -44,12 +44,12 @@ public class R<T> {
 
     public R message(String message){
 
-        this.setMessage(message);
+        this.message=message;
         return this;
     }
 
     public R code(Integer code){
-        this.code(code);
+        this.code=code;
         return this;
     }
 
