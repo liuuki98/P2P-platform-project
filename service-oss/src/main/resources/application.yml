@@ -1,0 +1,18 @@
+server:
+  port: 8130
+spring:
+  application:
+    name: service-oss
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+aliyun:
+  oss:
+    endpoint: oss-cn-beijing.aliyuncs.com
+    keyId: LTAI5tNB9C3YbTcSA6ih4BbJ
+    keySecret: IDHAeAC8uvObhPIRAsUmEZK0tRw3Zd
+    bucketName: com-liuuki-srb-file
+

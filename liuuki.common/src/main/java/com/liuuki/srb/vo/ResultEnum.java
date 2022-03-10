@@ -16,8 +16,8 @@ public enum ResultEnum {
     BAD_SQL_GRAMMAR_ERROR(-101, "sql语法错误"),
     SERVLET_ERROR(-102, "servlet请求异常"), //-2xx 参数校验
     UPLOAD_ERROR(-103, "文件上传错误"),
-    EXPORT_DATA_ERROR(104, "数据导出失败"),
-
+    EXPORT_DATA_ERROR(-104, "数据导出失败"),
+    DELETE_ERROR(-105,"文件删除失败"),
 
     //-2xx 参数校验
     BORROW_AMOUNT_NULL_ERROR(-201, "借款额度不能为空"),
@@ -31,7 +31,7 @@ public enum ResultEnum {
     LOGIN_PASSWORD_ERROR(209, "密码错误"),
     LOGIN_LOKED_ERROR(210, "用户被锁定"),
     LOGIN_AUTH_ERROR(-211, "未登录"),
-
+    PASSWORD_ERROR(-212,"密码规范错误" ),
 
     USER_BIND_IDCARD_EXIST_ERROR(-301, "身份证号码已绑定"),
     USER_NO_BIND_ERROR(302, "用户未绑定"),
@@ -43,13 +43,16 @@ public enum ResultEnum {
 
     PAY_UNIFIEDORDER_ERROR(401, "统一下单错误"),
 
+    ALIYUN_RESPONSE_FAIL(-501,"阿里云服务器响应失败" ),
     ALIYUN_SMS_LIMIT_CONTROL_ERROR(-502, "短信发送过于频繁"),//业务限流
     ALIYUN_SMS_ERROR(-503, "短信发送失败"),//其他失败
 
     WEIXIN_CALLBACK_PARAM_ERROR(-601, "回调参数不正确"),
     WEIXIN_FETCH_ACCESSTOKEN_ERROR(-602, "获取access_token失败"),
-    WEIXIN_FETCH_USERINFO_ERROR(-603, "获取用户信息失败"),
-    ;
+    WEIXIN_FETCH_USERINFO_ERROR(-603, "获取用户信息失败");
+
     private Integer code;//状态码
     private String message;//消息
+
+
 }

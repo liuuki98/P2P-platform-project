@@ -12,7 +12,7 @@ spring:
     host: 192.168.61.128
     port: 6379
     database: 0
-    password: 123456 #默认为空
+    password: system #默认为空
     timeout: 3000ms #最大等待时间，超时则抛出异常，否则请求一直等待
     lettuce:
       pool:
@@ -20,7 +20,18 @@ spring:
         max-wait: -1    #最大阻塞等待时间，负值表示没限制，默认-1
         max-idle: 8     #最大空闲连接，默认8
         min-idle: 0     #最小空闲连接，默认0
-
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+feign: #测试数值过大，上线需要修改
+  client:
+    config:
+      default:
+        connectTimeout: 10000 #连接超时配置
+        readTimeout: 600000 #执行超时配置
+  sentinel:
+    enabled: true
 #阿里云短信
 aliyun:
   sms:

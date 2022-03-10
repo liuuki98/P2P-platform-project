@@ -35,7 +35,7 @@ public class SwaggerConfig {
                 .apiInfo(adminApiInfo())
                 .select()
                 //只显示admin路径下的页面
-                .paths(Predicates.and(PathSelectors.regex("/admin/.*")))
+                .paths(Predicates.and(PathSelectors.regex("/api/.*")))
                 .build();
 
     }

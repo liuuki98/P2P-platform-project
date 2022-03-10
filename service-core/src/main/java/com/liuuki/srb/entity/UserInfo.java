@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -26,8 +28,14 @@ public class UserInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+
+    //用户状态常量
+    public static final Integer STATUS_NORMAL = 1;
+    public static final Integer STATUS_LOCKED = 0;
+
     @ApiModelProperty(value = "编号")
-      @TableId(value = "id", type = IdType.AUTO)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     @ApiModelProperty(value = "1：出借人 2：借款人")

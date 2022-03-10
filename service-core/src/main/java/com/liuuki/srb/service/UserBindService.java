@@ -2,6 +2,9 @@ package com.liuuki.srb.service;
 
 import com.liuuki.srb.entity.UserBind;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.liuuki.srb.entity.vo.UserBindVO;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -13,4 +16,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface UserBindService extends IService<UserBind> {
 
+    String userBind(UserBindVO userBindVO, Long userId);
+
+    void notifies(Map<String, Object> paramMap);
 }
