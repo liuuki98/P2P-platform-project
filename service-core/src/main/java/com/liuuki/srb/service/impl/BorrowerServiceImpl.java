@@ -3,12 +3,12 @@ package com.liuuki.srb.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.liuuki.exception.Assert;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.liuuki.srb.dao.BorrowerAttachMapper;
+import com.liuuki.srb.dao.BorrowerMapper;
 import com.liuuki.srb.dao.UserInfoMapper;
 import com.liuuki.srb.dao.UserIntegralMapper;
 import com.liuuki.srb.entity.Borrower;
-import com.liuuki.srb.dao.BorrowerMapper;
 import com.liuuki.srb.entity.BorrowerAttach;
 import com.liuuki.srb.entity.UserInfo;
 import com.liuuki.srb.entity.UserIntegral;
@@ -20,9 +20,7 @@ import com.liuuki.srb.enums.BorrowerStatusEnum;
 import com.liuuki.srb.enums.IntegralEnum;
 import com.liuuki.srb.service.BorrowerAttachService;
 import com.liuuki.srb.service.BorrowerService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.liuuki.srb.service.DictService;
-import com.liuuki.srb.service.UserInfoService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -146,12 +144,11 @@ public class BorrowerServiceImpl extends ServiceImpl<BorrowerMapper, Borrower> i
         borrowerDetailVO.setIncome(income);
         borrowerDetailVO.setReturnSource(returnSource);
         borrowerDetailVO.setContactsRelation(contactsRelation);
-        //审批状态
+        //审批状态,以message返回
         String status = BorrowerStatusEnum.getMsgByStatus(borrower.getStatus());
         borrowerDetailVO.setStatus(status);
 
 
-        //获取附件VO列表
         //获取附件VO列表
         List<BorrowerAttachVO> borrowerAttachVOList =  borrowerAttachService.selectBorrowerAttachVOList(id);
         borrowerDetailVO.setBorrowerAttachVOList(borrowerAttachVOList);
@@ -165,12 +162,20 @@ public class BorrowerServiceImpl extends ServiceImpl<BorrowerMapper, Borrower> i
         Long borrowerId = borrowerApprovalVO.getBorrowerId();
         Borrower borrower = baseMapper.selectById(borrowerId);
         borrower.setStatus(borrowerApprovalVO.getStatus());//通过或不通过
+
         baseMapper.updateById(borrower);
 
         //获取用户信息，用于积分的更新
         Long userId = borrower.getUserId();
         UserInfo userInfo = userInfoMapper.selectById(userId);
 
+        //验证不通过直接返回，不进行积分计算
+        if(borrowerApprovalVO.getStatus()==-1){
+            //修改审核状态
+            userInfo.setBorrowAuthStatus(borrowerApprovalVO.getStatus());
+            userInfoMapper.updateById(userInfo);
+            return;
+        }
         //积分更新
 
         //申请：借款人基本信息积分

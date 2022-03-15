@@ -19,4 +19,6 @@ public interface UserBindService extends IService<UserBind> {
     String userBind(UserBindVO userBindVO, Long userId);
 
     void notifies(Map<String, Object> paramMap);
+
+    String getBindCodeByUserId(Long investUserId);
 }

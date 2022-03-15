@@ -1,7 +1,8 @@
 package com.liuuki.srb.service;
 
-import com.liuuki.srb.entity.TransFlow;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.liuuki.srb.entity.TransFlow;
+import com.liuuki.srb.entity.bo.TransFlowBO;
 
 /**
  * <p>
@@ -13,4 +14,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface TransFlowService extends IService<TransFlow> {
 
+    void saveTransFlow(TransFlowBO transFlowBO);
+
+    boolean isSaveTransFlow(String agentBillNo);
 }
